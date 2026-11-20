@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>META IT SCHOOL — Admin Boshqaruv Paneli</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+  <!-- Tailwind CSS v3.4 CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#080B14',
+              surface: '#0E1628',
+              card: '#101A35',
+              blue: '#2563EB',
+              cyan: '#38BDF8'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Admin Styles -->
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+
+<body class="bg-[#080B14] text-slate-100 min-h-screen flex flex-col">
+
+  <!-- =========================================================
+       1. LOGIN VIEW (SHOWN WHEN NOT LOGGED IN)
+  ========================================================= -->
+  <div id="adminLoginView" class="flex-1 flex items-center justify-center p-4">
+    <div class="w-full max-w-md rounded-3xl glass-panel p-8 sm:p-10 border border-white/10 shadow-2xl relative">
+      <div class="text-center mb-8">
+        <img src="assets/logo.svg" alt="Meta IT School" class="h-10 mx-auto mb-4" />
+        <h2 class="text-2xl font-bold text-white">Admin Tizimiga Kirish</h2>
+        <p class="text-xs text-slate-400 mt-1">META IT SCHOOL boshqaruv markazi</p>
+      </div>
+
+      <form id="adminLoginForm" class="space-y-5">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Login</label>
+          <div class="relative">
+            <i class="fa-regular fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+            <input id="adminUserInput" type="text" required value="admin"
+                   class="w-full pl-11 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Parol</label>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+            <input id="adminPassInput" type="password" required value="meta2025"
+                   class="w-full pl-11 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 rounded-xl text-sm font-bold bg-blue-600 hover:bg-blue-500 text-white transition-all shadow-lg shadow-blue-600/30">
+          <i class="fa-solid fa-right-to-bracket mr-2"></i> Tizimga Kirish
+        </button>
+
+        <div class="p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-center">
+          <p class="text-[11px] text-blue-300 font-mono">
+            Standart login: <b>admin</b> | Parol: <b>meta2025</b>
+          </p>
+        </div>
+
+        <div class="text-center pt-2">
+          <a href="index.html" class="text-xs text-slate-400 hover:text-white transition-colors">
+            <i class="fa-solid fa-arrow-left mr-1"></i> Asosiy saytga qaytish
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       2. DASHBOARD VIEW (SHOWN WHEN LOGGED IN)
+  ========================================================= -->
+  <div id="adminDashboardView" class="hidden flex-1 flex flex-col">
+    
+    <!-- Top Header -->
+    <header class="h-16 px-6 glass-panel border-b border-white/10 flex items-center justify-between sticky top-0 z-40">
+      <div class="flex items-center gap-4">
+        <a href="index.html" target="_blank" title="Saytni ko'rish">
+          <img src="assets/logo.svg" alt="Meta IT School" class="h-8" />
+        </a>
+        <span class="px-2.5 py-0.5 rounded-md bg-blue-500/10 text-blue-400 text-xs font-mono font-semibold border border-blue-500/20">
+          ADMIN v2.0
+        </span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="text-xs text-slate-300 hover:text-white flex items-center gap-1.5 transition-colors">
+          <i class="fa-solid fa-arrow-up-right-from-square text-[11px]"></i>
+          <span>Saytni ochish</span>
+        </a>
+
+        <div class="h-4 w-px bg-white/10"></div>
+
+        <button id="adminLogoutBtn" class="px-3 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-semibold transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span>Chiqish</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Body Layout -->
+    <div class="flex-1 flex flex-col md:flex-row">
+      
+      <!-- Sidebar Navigation -->
+      <aside class="w-full md:w-64 glass-panel border-r border-white/10 p-4 shrink-0 flex md:flex-col gap-1 overflow-x-auto md:overflow-visible">
+        <button data-tab="stats" class="admin-nav-item active w-full px-4 py-3 rounded-xl text-left text-xs font-semibold flex items-center gap-3 transition-colors text-slate-300 hover:text-white">
+          <i class="fa-solid fa-chart-pie text-sm"></i>
+          <span>Umumiy Statistika</span>
+        </button>
+
+        <button data-tab="applications" class="admin-nav-item w-full px-4 py-3 rounded-xl text-left text-xs font-semibold flex items-center gap-3 transition-colors text-slate-300 hover:text-white">
+          <i class="fa-solid fa-users text-sm"></i>
+          <span>Arizalar &amp; Leads</span>
+        </button>
+
+        <button data-tab="courses" class="admin-nav-item w-full px-4 py-3 rounded-xl text-left text-xs font-semibold flex items-center gap-3 transition-colors text-slate-300 hover:text-white">
+          <i class="fa-solid fa-graduation-cap text-sm"></i>
+          <span>Kurslar (CRUD)</span>
+        </button>
+
+        <button data-tab="mentors" class="admin-nav-item w-full px-4 py-3 rounded-xl text-left text-xs font-semibold flex items-center gap-3 transition-colors text-slate-300 hover:text-white">
+          <i class="fa-solid fa-user-tie text-sm"></i>
+          <span>Mentorlar</span>
+        </button>
+
+        <button data-tab="settings" class="admin-nav-item w-full px-4 py-3 rounded-xl text-left text-xs font-semibold flex items-center gap-3 transition-colors text-slate-300 hover:text-white">
+          <i class="fa-solid fa-gear text-sm"></i>
+          <span>Telegram &amp; Sozlamalar</span>
+        </button>
+      </aside>
+
+      <!-- Tab Content Area -->
+      <main class="flex-1 p-6 sm:p-8 max-w-7xl mx-auto w-full overflow-y-auto">
+        
+        <!-- PANE 1: STATS OVERVIEW -->
+        <div id="tabPane_stats" class="admin-tab-pane space-y-8">
+          <div>
+            <h2 class="text-2xl font-bold text-white mb-1">Dashboard Ko'rsatkichlari</h2>
+            <p class="text-xs text-slate-400">Meta IT School talabalar arizalari va o'quv jarayoni tahlili</p>
+          </div>
+
+          <!-- KPI Cards -->
+          <div class="grid grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="p-6 rounded-2xl glass-panel border border-white/10">
+              <div class="flex items-center justify-between text-slate-400 mb-2">
+                <span class="text-xs font-semibold">Jami Arizalar</span>
+                <i class="fa-solid fa-file-lines text-blue-400"></i>
+              </div>
+              <div id="statTotalApps" class="text-3xl font-extrabold text-white">0</div>
+              <span class="text-[11px] text-blue-400 mt-1 block">Saytdan kelgan barcha arizalar</span>
+            </div>
+
+            <div class="p-6 rounded-2xl glass-panel border border-white/10">
+              <div class="flex items-center justify-between text-slate-400 mb-2">
+                <span class="text-xs font-semibold">Yangi Leads</span>
+                <i class="fa-solid fa-bell text-amber-400"></i>
+              </div>
+              <div id="statNewApps" class="text-3xl font-extrabold text-amber-400">0</div>
+              <span class="text-[11px] text-amber-300 mt-1 block">Kutilayotgan murojaatlar</span>
+            </div>
+
+            <div class="p-6 rounded-2xl glass-panel border border-white/10">
+              <div class="flex items-center justify-between text-slate-400 mb-2">
+                <span class="text-xs font-semibold">Qabul Qilinganlar</span>
+                <i class="fa-solid fa-circle-check text-emerald-400"></i>
+              </div>
+              <div id="statAcceptedApps" class="text-3xl font-extrabold text-emerald-400">0</div>
+              <span class="text-[11px] text-emerald-300 mt-1 block">O'quvchi safiga qo'shildi</span>
+            </div>
+
+            <div class="p-6 rounded-2xl glass-panel border border-white/10">
+              <div class="flex items-center justify-between text-slate-400 mb-2">
+                <span class="text-xs font-semibold">Faol Kurslar</span>
+                <i class="fa-solid fa-laptop-code text-cyan-400"></i>
+              </div>
+              <div id="statTotalCourses" class="text-3xl font-extrabold text-cyan-400">0</div>
+              <span class="text-[11px] text-slate-400 mt-1 block">Katalogdagi yo'nalishlar</span>
+            </div>
+
+            <div class="p-6 rounded-2xl glass-panel border border-white/10">
+              <div class="flex items-center justify-between text-slate-400 mb-2">
+                <span class="text-xs font-semibold">Mentorlar</span>
+                <i class="fa-solid fa-user-group text-purple-400"></i>
+              </div>
+              <div id="statTotalMentors" class="text-3xl font-extrabold text-purple-400">0</div>
+              <span class="text-[11px] text-slate-400 mt-1 block">Faol instruktorlar</span>
+            </div>
+
+            <div class="p-6 rounded-2xl glass-panel border border-white/10">
+              <div class="flex items-center justify-between text-slate-400 mb-2">
+                <span class="text-xs font-semibold">Konversiya</span>
+                <i class="fa-solid fa-arrow-trend-up text-pink-400"></i>
+              </div>
+              <div id="statConversion" class="text-3xl font-extrabold text-pink-400">0%</div>
+              <span class="text-[11px] text-slate-400 mt-1 block">Arizadan o'quvchiga aylanish</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE 2: APPLICATIONS (LEADS) -->
+        <div id="tabPane_applications" class="admin-tab-pane hidden space-y-6">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-bold text-white mb-1">Arizalar va Leads Boshqaruvi</h2>
+              <p class="text-xs text-slate-400">Sayt orqali yuborilgan barcha murojaatlar va Telegram loglari</p>
+            </div>
+
+            <button id="exportCsvBtn" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white flex items-center gap-2 transition-all">
+              <i class="fa-solid fa-file-csv"></i>
+              <span>CSV ga Yuklab Olish</span>
+            </button>
+          </div>
+
+          <!-- Controls: Filter & Search -->
+          <div class="flex flex-col sm:flex-row items-center gap-4">
+            <div class="relative w-full sm:w-72">
+              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+              <input id="appSearchInput" type="text" placeholder="Ism, telefon yoki kurs..."
+                     class="w-full pl-9 pr-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+            </div>
+
+            <select id="appStatusFilter" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-[#0E1628] border border-white/10 text-xs text-white focus:outline-none focus:border-blue-500">
+              <option value="all">Barcha holatlar</option>
+              <option value="Yangi">Yangi</option>
+              <option value="Bog'lanildi">Bog'lanildi</option>
+              <option value="Qabul qilindi">Qabul qilindi</option>
+              <option value="Bekor qilindi">Bekor qilindi</option>
+            </select>
+          </div>
+
+          <!-- Applications Table -->
+          <div class="rounded-2xl glass-panel border border-white/10 overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-white/10 text-slate-400 text-xs uppercase tracking-wider bg-white/[0.02]">
+                    <th class="py-3 px-4 font-semibold">ID</th>
+                    <th class="py-3 px-4 font-semibold">O'quvchi</th>
+                    <th class="py-3 px-4 font-semibold">Telefon</th>
+                    <th class="py-3 px-4 font-semibold">Tanlangan Kurs</th>
+                    <th class="py-3 px-4 font-semibold">Vaqt</th>
+                    <th class="py-3 px-4 font-semibold">Holat</th>
+                    <th class="py-3 px-4 font-semibold text-right">Amallar</th>
+                  </tr>
+                </thead>
+                <tbody id="applicationsTableBody">
+                  <!-- Injected via admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE 3: COURSES (CRUD) -->
+        <div id="tabPane_courses" class="admin-tab-pane hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-2xl font-bold text-white mb-1">Kurslar Katalogini Boshqarish</h2>
+              <p class="text-xs text-slate-400">Yangi kurs qo'shish, ma'lumotlarni yangilash va narxlarni boshqarish</p>
+            </div>
+
+            <button onclick="openAddCourseModal()" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white flex items-center gap-2 transition-all">
+              <i class="fa-solid fa-plus"></i>
+              <span>Yangi Kurs Qo'shish</span>
+            </button>
+          </div>
+
+          <div id="adminCoursesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Courses injected via admin.js -->
+          </div>
+        </div>
+
+        <!-- PANE 4: MENTORS -->
+        <div id="tabPane_mentors" class="admin-tab-pane hidden space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-2xl font-bold text-white mb-1">Mentorlar Jamoasi</h2>
+              <p class="text-xs text-slate-400">Akademiya o'qituvchilari va instruktorlar ro'yxati</p>
+            </div>
+
+            <button onclick="openAdminModal('mentorFormModal')" class="px-4 py-2.5 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white flex items-center gap-2 transition-all">
+              <i class="fa-solid fa-plus"></i>
+              <span>Yangi Mentor Qo'shish</span>
+            </button>
+          </div>
+
+          <div id="adminMentorsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Mentors injected via admin.js -->
+          </div>
+        </div>
+
+        <!-- PANE 5: SETTINGS & TELEGRAM -->
+        <div id="tabPane_settings" class="admin-tab-pane hidden space-y-8 max-w-3xl">
+          <div>
+            <h2 class="text-2xl font-bold text-white mb-1">Tizim va Telegram Bot Sozlamalari</h2>
+            <p class="text-xs text-slate-400">Telegram integratsiyasi va akademiya aloqa ma'lumotlarini to'g'irlash</p>
+          </div>
+
+          <!-- Telegram Bot Box -->
+          <div class="rounded-2xl glass-panel p-6 border border-cyan-500/30">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl">
+                <i class="fa-brands fa-telegram"></i>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white">Telegram Bot Xabarnoma Tizimi</h4>
+                <p class="text-xs text-slate-400">Sayt arizalarini to'g'ridan-to'g'ri Telegram guruh yoki botingizga qabul qiling</p>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Telegram Bot Token (BotFather dan olingan):</label>
+                <input id="settingTgToken" type="text" placeholder="Masalan: 7123456789:AAHk..."
+                       class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white font-mono placeholder-slate-500 focus:outline-none focus:border-cyan-500" />
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Telegram Chat ID (Guruh yoki Admin ID):</label>
+                <input id="settingTgChatId" type="text" placeholder="Masalan: -1001234567890 yoki 12345678"
+                       class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white font-mono placeholder-slate-500 focus:outline-none focus:border-cyan-500" />
+              </div>
+
+              <div class="pt-2 flex items-center gap-3">
+                <button id="testTelegramBtn" type="button" class="px-4 py-2 rounded-xl text-xs font-bold bg-cyan-600 hover:bg-cyan-500 text-white flex items-center gap-2 transition-all">
+                  <i class="fa-brands fa-telegram"></i>
+                  <span>Test Xabar Yuborish</span>
+                </button>
+                <span class="text-[11px] text-slate-400">Bot sozlamalarini tekshirib ko'ring</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Academy Details Form -->
+          <form id="settingsForm" class="rounded-2xl glass-panel p-6 border border-white/10 space-y-4">
+            <h4 class="text-sm font-bold text-white mb-2">Akademiya Ma'lumotlari</h4>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Aloqa telefoni</label>
+                <input id="settingPhone" type="text" placeholder="+998 71 200-00-50"
+                       class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-blue-500" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Aloqa emaili</label>
+                <input id="settingEmail" type="email" placeholder="info@metaitschool.uz"
+                       class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-blue-500" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Ofis manzili</label>
+              <input id="settingAddress" type="text" placeholder="Toshkent shahri, Bunyodkor 42-uy"
+                     class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-blue-500" />
+            </div>
+
+            <div class="pt-2 border-t border-white/10">
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Admin yangi paroli (o'zgartirish uchun)</label>
+              <input id="settingNewPass" type="password" placeholder="Bo'sh qoldirilsa o'zgarmaydi"
+                     class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-blue-500" />
+            </div>
+
+            <button type="submit" class="w-full py-3 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition-all">
+              Barcha Sozlamalarni Saqlash
+            </button>
+          </form>
+
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+
+  <!-- =========================================================
+       3. MODALS
+  ========================================================= -->
+
+  <!-- Modal: Add / Edit Course -->
+  <div id="courseFormModal" class="modal-backdrop fixed inset-0 z-[1000] flex items-center justify-center p-4">
+    <div class="modal-box w-full max-w-lg rounded-3xl glass-panel p-6 sm:p-8 border border-white/10 shadow-2xl relative">
+      <button onclick="closeAdminModal('courseFormModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <h3 id="courseFormModalTitle" class="text-xl font-bold text-white mb-4">Yangi Kurs Qo'shish</h3>
+
+      <form id="courseForm" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Kurs nomi</label>
+          <input id="cfTitle" type="text" required placeholder="Masalan: Full Stack Development"
+                 class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-blue-500" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Kategoriya</label>
+            <select id="cfCategory" class="w-full px-4 py-2 rounded-xl bg-[#0E1628] border border-white/10 text-xs text-white focus:outline-none">
+              <option value="frontend">Frontend</option>
+              <option value="backend">Backend</option>
+              <option value="fullstack">Full Stack</option>
+              <option value="python">Python</option>
+              <option value="design">Dizayn</option>
+              <option value="mobile">Mobile</option>
+              <option value="ai">AI</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Narxi (oyiga)</label>
+            <input id="cfPrice" type="text" required placeholder="1,200,000"
+                   class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-blue-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Davomiyligi</label>
+            <input id="cfDuration" type="text" placeholder="6 oy"
+                   class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-blue-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Darajasi</label>
+            <input id="cfLevel" type="text" placeholder="Boshlang'ichdan Junior+"
+                   class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-blue-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Badge (masalan: Eng ommabop, Yangi)</label>
+          <input id="cfBadge" type="text" placeholder="Eng ommabop"
+                 class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Tavsif (Description)</label>
+          <textarea id="cfDesc" rows="3" placeholder="Kurs haqida qisqacha ma'lumot..."
+                    class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-blue-500 resize-none"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Texnologiyalar (vergul bilan):</label>
+          <input id="cfTechs" type="text" placeholder="React, Node.js, PostgreSQL"
+                 class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-blue-500" />
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white transition-all">
+          Saqlash
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Mentor -->
+  <div id="mentorFormModal" class="modal-backdrop fixed inset-0 z-[1000] flex items-center justify-center p-4">
+    <div class="modal-box w-full max-w-md rounded-3xl glass-panel p-6 sm:p-8 border border-white/10 shadow-2xl relative">
+      <button onclick="closeAdminModal('mentorFormModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <h3 class="text-xl font-bold text-white mb-4">Yangi Mentor Qo'shish</h3>
+
+      <form id="mentorForm" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Mentor ismi</label>
+          <input id="mfName" type="text" required placeholder="Masalan: Jamshid Aliyev"
+                 class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-purple-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Lavozim / Mutaxassislik</label>
+          <input id="mfRole" type="text" required placeholder="Senior Frontend Engineer"
+                 class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-purple-500" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Kompaniya</label>
+            <input id="mfCompany" type="text" placeholder="Ex-EPAM"
+                   class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-purple-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Tajriba</label>
+            <input id="mfExp" type="text" placeholder="6+ yil tajriba"
+                   class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-purple-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Rasm URL</label>
+          <input id="mfAvatar" type="url" placeholder="https://..."
+                 class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-purple-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Tavsif (Bio)</label>
+          <textarea id="mfBio" rows="2" placeholder="Mentor haqida qisqacha..."
+                    class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-purple-500 resize-none"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Teglar (vergul bilan)</label>
+          <input id="mfTags" type="text" placeholder="React, Next.js, TypeScript"
+                 class="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-purple-500" />
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white transition-all">
+          Mentorni Saqlash
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div id="adminToastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="/js/admin.js"></script>
+</body>
+</html>

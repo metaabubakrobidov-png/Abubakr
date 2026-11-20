@@ -1,327 +1,1179 @@
 <!DOCTYPE html>
-<html lang="uz" data-theme="dark">
+<html lang="uz" class="dark scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDIJON FAST FOOD | Premium Restoran</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>META IT SCHOOL — Professional Dasturlash Akademiyasi</title>
+  <meta name="description" content="Meta IT School bilan zamonaviy IT kasblarini o‘rganing: Frontend, Backend, Full Stack, Python, AI, Mobile va UI/UX Dizayn. Amaliyot va ishga joylashish kafolati." />
+  <meta name="keywords" content="IT maktab, dasturlash kursi, Frontend, Backend, Python, Flutter, AI, Toshkent dasturlash, Meta IT School" />
+  <meta property="og:title" content="META IT SCHOOL — Zamonaviy IT Akademiyasi" />
+  <meta property="og:description" content="Kelajagingni bugundan dasturlash bilan yarat! 1000+ o'quvchi, 15+ senior mentorlar va 10+ professional kurslar." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+  <!-- Tailwind CSS v3.4 CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#080B14',
+              surface: '#0E1628',
+              card: '#101A35',
+              blue: '#2563EB',
+              cyan: '#38BDF8',
+              purple: '#8B5CF6'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Custom Core Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
 
-    <!-- NAVBAR -->
-    <header class="header">
-        <div class="container nav-container">
-            <a href="#" class="logo">
-                <i class="fa-solid fa-burger"></i>
-                <span>ANDIJON <span>FAST FOOD</span></span>
-            </a>
+<body class="bg-brand-dark text-slate-100 selection:bg-blue-600 selection:text-white relative">
 
-            <nav class="navbar" id="navbar">
-                <ul class="nav-menu">
-                    <li><a href="#home" class="nav-link" data-i18n="nav_home">Bosh sahifa</a></li>
-                    <li><a href="#menu" class="nav-link" data-i18n="nav_menu">Menyu</a></li>
-                    <li><a href="#promos" class="nav-link" data-i18n="nav_promos">Aksiyalar</a></li>
-                    <li><a href="#wheel-section" class="nav-link" data-i18n="nav_game">Omadli G‘ildirak</a></li>
-                    <li><a href="#about" class="nav-link" data-i18n="nav_about">Biz haqimizda</a></li>
-                    <li><a href="#contact" class="nav-link" data-i18n="nav_contact">Aloqa</a></li>
-                </ul>
-            </nav>
+  <!-- =========================================================
+       0. PRELOADER / LOADING SCREEN
+  ========================================================= -->
+  <div id="loadingScreen" class="fixed inset-0 z-[99999] bg-[#080B14] flex flex-col items-center justify-center">
+    <div class="relative w-24 h-24 mb-5 flex items-center justify-center">
+      <div class="absolute inset-0 rounded-full border-4 border-blue-500/20 border-t-blue-500 animate-spin"></div>
+      <img src="assets/logo.svg" alt="Meta IT School" class="w-16 h-16 animate-pulse" />
+    </div>
+    <div class="text-xs uppercase tracking-widest text-slate-400 font-mono">
+      META IT SCHOOL <span class="text-blue-500">·</span> YUKLANMOQDA...
+    </div>
+  </div>
 
-            <div class="nav-actions">
-                <select id="langSwitch" class="lang-switch">
-                    <option value="uz">🇺🇿 UZ</option>
-                    <option value="ru">🇷🇺 RU</option>
-                    <option value="en">🇬🇧 EN</option>
-                </select>
+  <!-- Global Glowing Ambient Backgrounds -->
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
 
-                <button id="themeToggle" class="theme-btn" aria-label="Theme Toggle">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
+  <!-- =========================================================
+       1. STICKY NAVBAR
+  ========================================================= -->
+  <header id="mainNavbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        
+        <!-- Brand Logo -->
+        <a href="#hero" class="flex items-center gap-3 group">
+          <img src="assets/logo.svg" alt="Meta IT School" class="h-10 w-auto transition-transform group-hover:scale-105" />
+        </a>
 
-                <button id="cartBtn" class="cart-btn" aria-label="Cart">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    <span id="cartCount" class="cart-count">0</span>
-                </button>
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-300">
+          <a href="#hero" data-i18n="nav_home" class="hover:text-blue-400 transition-colors">Bosh sahifa</a>
+          <a href="#about" data-i18n="nav_about" class="hover:text-blue-400 transition-colors">Biz haqimizda</a>
+          <a href="#courses" data-i18n="nav_courses" class="hover:text-blue-400 transition-colors">Kurslar</a>
+          <a href="#mentors" data-i18n="nav_mentors" class="hover:text-blue-400 transition-colors">Ustozlar</a>
+          <a href="#results" data-i18n="nav_results" class="hover:text-blue-400 transition-colors">Natijalar</a>
+          <a href="#blog" data-i18n="nav_blog" class="hover:text-blue-400 transition-colors">Blog</a>
+          <a href="#faq" data-i18n="nav_faq" class="hover:text-blue-400 transition-colors">FAQ</a>
+          <a href="#contact" data-i18n="nav_contact" class="hover:text-blue-400 transition-colors">Aloqa</a>
+        </nav>
 
-                <div class="hamburger" id="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
+        <!-- Right Utilities & Action Buttons -->
+        <div class="hidden sm:flex items-center gap-3">
+          
+          <!-- Language Selector -->
+          <div class="relative group">
+            <button class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-colors">
+              <i class="fa-solid fa-globe text-blue-400"></i>
+              <span id="currentLangDisplay">UZ</span>
+              <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+            </button>
+            <div class="absolute right-0 mt-2 w-32 py-1.5 rounded-xl glass-panel border border-white/10 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <button data-lang="uz" class="lang-btn w-full px-3 py-1.5 text-left text-xs font-medium text-slate-300 hover:bg-white/10 flex items-center justify-between">
+                <span>O'zbekcha</span>
+                <span class="text-[10px] font-mono opacity-60">UZ</span>
+              </button>
+              <button data-lang="ru" class="lang-btn w-full px-3 py-1.5 text-left text-xs font-medium text-slate-300 hover:bg-white/10 flex items-center justify-between">
+                <span>Русский</span>
+                <span class="text-[10px] font-mono opacity-60">RU</span>
+              </button>
+              <button data-lang="en" class="lang-btn w-full px-3 py-1.5 text-left text-xs font-medium text-slate-300 hover:bg-white/10 flex items-center justify-between">
+                <span>English</span>
+                <span class="text-[10px] font-mono opacity-60">EN</span>
+              </button>
             </div>
+          </div>
+
+          <!-- Dark/Light Theme Toggle -->
+          <button id="themeToggle" title="Rejimni o'zgartirish" class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors">
+            <i class="theme-icon fa-solid fa-moon text-sm text-cyan-400"></i>
+          </button>
+
+          <!-- Admin Panel / Kirish -->
+          <a href="/admin" data-i18n="nav_login" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 transition-all">
+            Kirish
+          </a>
+
+          <!-- Ro'yxatdan o'tish (CTA) -->
+          <a href="#applySection" data-i18n="nav_register" class="px-4 py-2 rounded-xl text-xs font-bold btn-primary flex items-center gap-1.5">
+            <span>Ro'yxatdan o'tish</span>
+            <i class="fa-solid fa-arrow-right text-[11px]"></i>
+          </a>
         </div>
-    </header>
 
-    <!-- HERO SECTION -->
-    <section class="hero" id="home">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <span class="hero-badge" data-i18n="hero_badge">🔥 Andijonda #1 Raqamli Fast Food</span>
-                <h1 data-i18n="hero_title">ENG MAZALI FAST FOOD ANDIJONDA!</h1>
-                <p data-i18n="hero_subtitle">Sevimli ta'mingizni biz bilan kashf eting! Haqiqiy sharqona lazzat va zamonaviy yondashuv uyg'unligi.</p>
-                <div class="hero-btns">
-                    <a href="#menu" class="btn btn-primary" data-i18n="btn_menu">Menyuni ko‘rish</a>
-                    <a href="#menu" class="btn btn-secondary" data-i18n="btn_order">Buyurtma berish</a>
-                </div>
-            </div>
-            <div class="hero-image-wrapper">
-                <div class="glow-circle"></div>
-                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop" alt="Delicious Lavash & Burger" class="hero-img floating">
-            </div>
-        </div>
-    </section>
+        <!-- Mobile Hamburger Button -->
+        <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-white focus:outline-none">
+          <i class="fa-solid fa-bars-staggered text-lg"></i>
+        </button>
 
-    <!-- PROMOTIONS SECTION -->
-    <section class="promos-section" id="promos">
-        <div class="container">
-            <div class="section-title">
-                <span data-i18n="promo_tag">MAXSUS TAKLIFLAR</span>
-                <h2 data-i18n="promo_title">Bizning Aksiyalarimiz</h2>
-            </div>
-            <div class="promos-grid">
-                <div class="promo-card">
-                    <div class="promo-img">
-                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600&auto=format&fit=crop" alt="70+ Yosh">
-                    </div>
-                    <div class="promo-body">
-                        <span class="badge-tag" data-i18n="p1_tag">70+ Yosh</span>
-                        <h3 data-i18n="p1_title">70+ YOSH UCHUN SOVG‘A!</h3>
-                        <p data-i18n="p1_desc">70 yoshdan katta mijozlarimizga barcha sovuq ichimliklar mutlaqo bepul!</p>
-                        <button class="btn-sm btn-primary" onclick="claimPromo(1)" data-i18n="btn_claim">Aksiyadan foydalanish</button>
-                    </div>
-                </div>
-                <div class="promo-card highlight-promo">
-                    <div class="promo-img">
-                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600&auto=format&fit=crop" alt="100 Yosh">
-                    </div>
-                    <div class="promo-body">
-                        <span class="badge-tag gold" data-i18n="p2_tag">100 Yosh</span>
-                        <h3 data-i18n="p2_title">100 YOSHLI OTAJONLAR UCHUN!</h3>
-                        <p data-i18n="p2_desc">100 yoshga to'lgan otangizni restoranimizga olib kelsangiz, barcha mahsulotlar bepul!</p>
-                        <button class="btn-sm btn-primary" onclick="claimPromo(2)" data-i18n="btn_claim">Aksiyadan foydalanish</button>
-                    </div>
-                </div>
-                <div class="promo-card">
-                    <div class="promo-img">
-                        <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop" alt="Oilaviy">
-                    </div>
-                    <div class="promo-body">
-                        <span class="badge-tag" data-i18n="p3_tag">Oilaviy</span>
-                        <h3 data-i18n="p3_title">OILAVIY COMBO!</h3>
-                        <p data-i18n="p3_desc">3 ta burger va 3 ta ichimlik buyurtma qiling, 1 ta fri sovg‘a!</p>
-                        <button class="btn-sm btn-primary" onclick="claimPromo(3)" data-i18n="btn_claim">Aksiyadan foydalanish</button>
-                    </div>
-                </div>
-                <div class="promo-card">
-                    <div class="promo-img">
-                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop" alt="Tushlik">
-                    </div>
-                    <div class="promo-body">
-                        <span class="badge-tag" data-i18n="p4_tag">Tushlik</span>
-                        <h3 data-i18n="p4_title">TUSHLIK CHEGIRMASI!</h3>
-                        <p data-i18n="p4_desc">Har kuni soat 12:00 dan 15:00 gacha tanlangan taomlarga 15% chegirma!</p>
-                        <button class="btn-sm btn-primary" onclick="claimPromo(4)" data-i18n="btn_claim">Aksiyadan foydalanish</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      </div>
+    </div>
+  </header>
 
-    <!-- MENU SECTION -->
-    <section class="menu-section" id="menu">
-        <div class="container">
-            <div class="section-title">
-                <span data-i18n="menu_tag">MAHSULOTLAR</span>
-                <h2 data-i18n="menu_title">Bizning Mazali Menuyimiz</h2>
-            </div>
+  <!-- Mobile Drawer Menu -->
+  <div id="mobileBackdrop" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[998] hidden"></div>
+  <aside id="mobileDrawer" class="fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-brand-surface border-l border-white/10 z-[999] p-6 flex flex-col justify-between transform translate-x-full transition-transform duration-300 ease-in-out">
+    <div>
+      <div class="flex items-center justify-between pb-6 border-b border-white/10">
+        <img src="assets/logo.svg" alt="Meta IT School" class="h-8" />
+        <button id="mobileMenuClose" class="p-2 rounded-lg bg-white/5 text-slate-400 hover:text-white">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
 
-            <!-- Categories Filter -->
-            <div class="categories-filter">
-                <button class="filter-btn active" data-filter="all" data-i18n="cat_all">Barchasi</button>
-                <button class="filter-btn" data-filter="lavash" data-i18n="cat_lavash">Lavashlar</button>
-                <button class="filter-btn" data-filter="burger" data-i18n="cat_burger">Burgerlar</button>
-                <button class="filter-btn" data-filter="hotdog" data-i18n="cat_hotdog">Hot-doglar</button>
-                <button class="filter-btn" data-filter="pizza" data-i18n="cat_pizza">Pitsalar</button>
-                <button class="filter-btn" data-filter="drinks" data-i18n="cat_drinks">Ichimliklar</button>
-                <button class="filter-btn" data-filter="desserts" data-i18n="cat_desserts">Shirinliklar</button>
-            </div>
-
-            <!-- Products Grid -->
-            <div class="products-grid" id="productsGrid"></div>
-        </div>
-    </section>
-
-    <!-- LUCKY WHEEL SECTION -->
-    <section class="wheel-section" id="wheel-section">
-        <div class="container wheel-container">
-            <div class="wheel-info">
-                <span class="badge-tag" data-i18n="wheel_tag">OMADLI O‘YIN</span>
-                <h2 data-i18n="wheel_title">Omad G‘ildiragini Aylantiring!</h2>
-                <p data-i18n="wheel_desc">Har kuni 1 marta bepul g'ildirakni aylantirib, mazali sovg'alar va chegirmalarni yutib oling!</p>
-                <div id="wheelResult" class="wheel-result-text"></div>
-            </div>
-            <div class="wheel-wrapper">
-                <div class="wheel-pointer"></div>
-                <div class="wheel" id="luckyWheel">
-                    <div class="wheel-slice" style="--i: 1; background: #e50914;"><span data-i18n="wheel_1">10% Chegirma</span></div>
-                    <div class="wheel-slice" style="--i: 2; background: #ffcc00; color: #000;"><span data-i18n="wheel_2">Bepul Fri</span></div>
-                    <div class="wheel-slice" style="--i: 3; background: #1a1a1a;"><span data-i18n="wheel_3">15% Chegirma</span></div>
-                    <div class="wheel-slice" style="--i: 4; background: #e50914;"><span data-i18n="wheel_4">Bepul Ichimlik</span></div>
-                    <div class="wheel-slice" style="--i: 5; background: #ffcc00; color: #000;"><span data-i18n="wheel_5">20% Chegirma</span></div>
-                    <div class="wheel-slice" style="--i: 6; background: #333;"><span data-i18n="wheel_6">Omad Keyin</span></div>
-                </div>
-                <button id="spinBtn" class="btn btn-primary spin-btn" data-i18n="spin_btn">AYLANTIRISH</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section class="about-section" id="about">
-        <div class="container about-container">
-            <div class="about-img">
-                <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=800&auto=format&fit=crop" alt="Andijon Fast Food">
-            </div>
-            <div class="about-content">
-                <span class="badge-tag" data-i18n="about_tag">BIZ HAQIMIZDA</span>
-                <h2 data-i18n="about_title">Andijon Shahridagi Eng Sifatli Fast Food Makoni</h2>
-                <p data-i18n="about_desc">"ANDIJON FAST FOOD" – bu shunchaki ovqatlanish joyi emas, balki oilangiz va do'stlaringiz bilan mazali vaqt o'tkazadigan maskan.</p>
-                <div class="features-list">
-                    <div class="feature-item">
-                        <i class="fa-solid fa-bolt"></i>
-                        <div>
-                            <h4 data-i18n="f1_title">Tezkor Yetkazib Berish</h4>
-                            <p data-i18n="f1_desc">Andijon shahri bo'ylab 30 daqiqada issiq holda yetkazamiz.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <div>
-                            <h4 data-i18n="f2_title">100% Halol va Toza</h4>
-                            <p data-i18n="f2_desc">Barcha mahsulotlar qattiq sanitariya nazoratidan o'tadi.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT & LOCATION -->
-    <section class="contact-section" id="contact">
-        <div class="container">
-            <div class="section-title">
-                <span data-i18n="contact_tag">ALOQA VA MANZIL</span>
-                <h2 data-i18n="contact_title">Biz Bilan Bog‘laning</h2>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-card">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <div>
-                            <h4 data-i18n="c_addr_title">Manzilimiz</h4>
-                            <p data-i18n="c_addr_desc">Andijon shahri, Bobur shoh ko'chasi, 15-uy</p>
-                        </div>
-                    </div>
-                    <div class="contact-card">
-                        <i class="fa-solid fa-phone"></i>
-                        <div>
-                            <h4 data-i18n="c_phone_title">Telefon Raqam</h4>
-                            <p>+998 74 223-00-00<br>+998 90 580-00-00</p>
-                        </div>
-                    </div>
-                    <div class="contact-card">
-                        <i class="fa-solid fa-clock"></i>
-                        <div>
-                            <h4 data-i18n="c_time_title">Ish Vaqti</h4>
-                            <p data-i18n="c_time_desc">Har kuni: 09:00 - 03:00 (Tun-u kun)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="map-wrapper">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.428789012!2d72.3442!3d40.7828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bcee1!2sAndijan%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1650000000000!5m2!1sen!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container footer-container">
-            <div class="footer-col">
-                <a href="#" class="logo">
-                    <i class="fa-solid fa-burger"></i>
-                    <span>ANDIJON <span>FAST FOOD</span></span>
-                </a>
-                <p data-i18n="footer_desc">Andijon shahrining eng mazali va sifatli fast food tarmog'i.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h3 data-i18n="f_links">Tezkor Havolalar</h3>
-                <ul>
-                    <li><a href="#home" data-i18n="nav_home">Bosh sahifa</a></li>
-                    <li><a href="#menu" data-i18n="nav_menu">Menyu</a></li>
-                    <li><a href="#promos" data-i18n="nav_promos">Aksiyalar</a></li>
-                    <li><a href="#about" data-i18n="nav_about">Biz haqimizda</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3 data-i18n="f_cat">Kategoriyalar</h3>
-                <ul>
-                    <li><a href="#menu" onclick="filterCategory('lavash')">Lavashlar</a></li>
-                    <li><a href="#menu" onclick="filterCategory('burger')">Burgerlar</a></li>
-                    <li><a href="#menu" onclick="filterCategory('pizza')">Pitsalar</a></li>
-                    <li><a href="#menu" onclick="filterCategory('drinks')">Ichimliklar</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3 data-i18n="f_subscribe">Yangiliklarga Obuna</h3>
-                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Obuna bo\'ldingiz!');">
-                    <input type="email" placeholder="Email manzilingiz..." required>
-                    <button type="submit" class="btn btn-primary" data-i18n="btn_sub">Yuborish</button>
-                </form>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 ANDIJON FAST FOOD. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- CART SIDEBAR -->
-    <div class="cart-overlay" id="cartOverlay"></div>
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3 data-i18n="cart_title">Savatcha</h3>
-            <button class="close-cart" id="closeCart"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <div class="empty-cart" data-i18n="cart_empty">Savatchangiz bo'sh</div>
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span data-i18n="cart_total">Umumiy narx:</span>
-                <span id="cartTotalPrice">0 so'm</span>
-            </div>
-            <div class="checkout-form">
-                <input type="text" id="custName" placeholder="Ismingiz..." required data-i18n-placeholder="ph_name">
-                <input type="tel" id="custPhone" placeholder="Telefon raqam (+998...)" required data-i18n-placeholder="ph_phone">
-                <input type="text" id="custAddress" placeholder="Yetkazib berish manzili (Andijon)..." required data-i18n-placeholder="ph_address">
-                <button class="btn btn-primary btn-block" id="checkoutBtn" data-i18n="btn_checkout">Buyurtma Berish</button>
-            </div>
-        </div>
+      <nav class="flex flex-col gap-4 mt-6 text-sm font-medium">
+        <a href="#hero" class="mobile-nav-link text-slate-300 hover:text-blue-400 py-1" data-i18n="nav_home">Bosh sahifa</a>
+        <a href="#about" class="mobile-nav-link text-slate-300 hover:text-blue-400 py-1" data-i18n="nav_about">Biz haqimizda</a>
+        <a href="#courses" class="mobile-nav-link text-slate-300 hover:text-blue-400 py-1" data-i18n="nav_courses">Kurslar</a>
+        <a href="#mentors" class="mobile-nav-link text-slate-300 hover:text-blue-400 py-1" data-i18n="nav_mentors">Ustozlar</a>
+        <a href="#results" class="mobile-nav-link text-slate-300 hover:text-blue-400 py-1" data-i18n="nav_results">Natijalar</a>
+        <a href="#blog" class="mobile-nav-link text-slate-300 hover:text-blue-400 py-1" data-i18n="nav_blog">Blog</a>
+        <a href="#faq" class="mobile-nav-link text-slate-300 hover:text-blue-400 py-1" data-i18n="nav_faq">FAQ</a>
+        <a href="#contact" class="mobile-nav-link text-slate-300 hover:text-blue-400 py-1" data-i18n="nav_contact">Aloqa</a>
+      </nav>
     </div>
 
-    <!-- CUSTOM SCRIPT -->
-    <script src="script.js"></script>
+    <div class="pt-6 border-t border-white/10 flex flex-col gap-3">
+      <!-- Mobile Theme & Lang -->
+      <div class="flex items-center justify-between pb-3">
+        <div class="flex items-center gap-1">
+          <button data-lang="uz" class="lang-btn px-2 py-1 text-xs font-bold rounded bg-white/5">UZ</button>
+          <button data-lang="ru" class="lang-btn px-2 py-1 text-xs font-bold rounded bg-white/5">RU</button>
+          <button data-lang="en" class="lang-btn px-2 py-1 text-xs font-bold rounded bg-white/5">EN</button>
+        </div>
+        <button id="themeToggleMobile" class="p-2 rounded-lg bg-white/5 text-slate-300">
+          <i class="theme-icon fa-solid fa-moon"></i>
+        </button>
+      </div>
+
+      <a href="/admin" class="w-full py-2.5 rounded-xl text-center text-xs font-bold bg-white/5 text-white border border-white/10" data-i18n="nav_admin">
+        Admin Panel
+      </a>
+      <a href="#applySection" class="mobile-nav-link w-full py-2.5 rounded-xl text-center text-xs font-bold btn-primary" data-i18n="nav_register">
+        Ro'yxatdan o'tish
+      </a>
+    </div>
+  </aside>
+
+  <!-- =========================================================
+       2. HERO SECTION
+  ========================================================= -->
+  <section id="hero" class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-grid-pattern">
+    <!-- Interactive Canvas Particles -->
+    <canvas id="particlesCanvas" class="absolute inset-0 pointer-events-none z-0"></canvas>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Left Column: Copy & CTAs -->
+        <div class="lg:col-span-7 text-center lg:text-left">
+          
+          <!-- Announcement Pill -->
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold mb-6 pulse-glow">
+            <span class="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
+            <span data-i18n="hero_badge">🚀 2026-yilgi Yangi Qabul Ochiq — 30% Chegirma!</span>
+          </div>
+
+          <!-- Main Title -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight sm:leading-none tracking-tight mb-6">
+            <span class="gradient-text" data-i18n="hero_title">Kelajagingni bugundan dasturlash bilan yarat!</span>
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0" data-i18n="hero_desc">
+            Meta IT School bilan zamonaviy IT kasblarini o‘rganing, real loyihalar yarating va kelajakdagi kasbingiz sari birinchi qadamni tashlang.
+          </p>
+
+          <!-- Buttons -->
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12">
+            <a href="#courses" class="w-full sm:w-auto px-7 py-3.5 rounded-xl text-sm font-bold btn-primary flex items-center justify-center gap-2">
+              <i class="fa-solid fa-code"></i>
+              <span data-i18n="hero_btn_courses">Kurslarni ko‘rish</span>
+            </a>
+            <button onclick="openModal('consultModal')" class="w-full sm:w-auto px-7 py-3.5 rounded-xl text-sm font-bold btn-secondary flex items-center justify-center gap-2">
+              <i class="fa-regular fa-comments text-cyan-400"></i>
+              <span data-i18n="hero_btn_consult">Bepul konsultatsiya</span>
+            </button>
+          </div>
+
+          <!-- Stats Badges Bar (Animated Counters) -->
+          <div id="heroStatsContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-white/10">
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
+              <div class="text-2xl sm:text-3xl font-extrabold text-blue-400 counter-number" data-target="1000" data-suffix="+">0+</div>
+              <div class="text-xs text-slate-400 font-medium mt-1" data-i18n="hero_stat_students">O‘quvchi bitirgan</div>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
+              <div class="text-2xl sm:text-3xl font-extrabold text-cyan-400 counter-number" data-target="15" data-suffix="+">0+</div>
+              <div class="text-xs text-slate-400 font-medium mt-1" data-i18n="hero_stat_mentors">Tajribali mentor</div>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
+              <div class="text-2xl sm:text-3xl font-extrabold text-indigo-400 counter-number" data-target="10" data-suffix="+">0+</div>
+              <div class="text-xs text-slate-400 font-medium mt-1" data-i18n="hero_stat_courses">Professional kurs</div>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5">
+              <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 counter-number" data-target="90" data-suffix="%">0%</div>
+              <div class="text-xs text-slate-400 font-medium mt-1" data-i18n="hero_stat_practice">Amaliy mashg‘ulot</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Interactive 3D / Code Terminal Illustration -->
+        <div class="lg:col-span-5 relative">
+          
+          <!-- Floating Feature Badges -->
+          <div class="absolute -top-6 -left-6 z-20 hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl glass-panel border border-cyan-500/30 shadow-xl animate-float">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <span class="text-xs font-bold text-white">⭐ 98% Ishga joylashish</span>
+          </div>
+
+          <div class="absolute -bottom-6 -right-6 z-20 hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl glass-panel border border-purple-500/30 shadow-xl animate-float-reverse">
+            <i class="fa-solid fa-laptop-code text-cyan-400"></i>
+            <span class="text-xs font-bold text-white">💻 Live Coding &amp; Mentoring</span>
+          </div>
+
+          <!-- Code Editor Window -->
+          <div class="code-editor-container">
+            <!-- Terminal Header -->
+            <div class="px-4 py-3 bg-[#0B101D] border-b border-white/10 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="terminal-dot bg-rose-500"></span>
+                <span class="terminal-dot bg-amber-500"></span>
+                <span class="terminal-dot bg-emerald-500"></span>
+              </div>
+              
+              <!-- Tab Bar -->
+              <div class="flex items-center gap-1 text-[11px] font-mono">
+                <button data-file="developer.ts" class="code-tab-btn px-2.5 py-1 rounded-md bg-white/10 text-white font-semibold">
+                  developer.ts
+                </button>
+                <button data-file="skills.json" class="code-tab-btn px-2.5 py-1 rounded-md text-slate-400 hover:text-white">
+                  skills.json
+                </button>
+                <button data-file="career.config.js" class="code-tab-btn px-2.5 py-1 rounded-md text-slate-400 hover:text-white">
+                  career.config.js
+                </button>
+              </div>
+
+              <div class="text-[11px] text-slate-400 font-mono">
+                <i class="fa-brands fa-react text-cyan-400"></i> React 19
+              </div>
+            </div>
+
+            <!-- Code Content Body with Typing Animation -->
+            <div class="p-5 font-mono text-xs sm:text-sm text-slate-300 leading-relaxed overflow-x-auto min-h-[310px]">
+              <pre><code id="typingCodeText" class="text-emerald-300"></code><span class="cursor-blink"></span></pre>
+            </div>
+
+            <!-- Terminal Footer Status -->
+            <div class="px-4 py-2 bg-[#0B101D] border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <div class="flex items-center gap-3">
+                <span><i class="fa-solid fa-code-branch text-purple-400 mr-1"></i>main</span>
+                <span><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i>0 errors</span>
+              </div>
+              <span class="text-cyan-400">UTF-8 · TypeScript</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       3. HIRING PARTNERS INFINITE MARQUEE
+  ========================================================= -->
+  <section class="py-8 border-y border-white/5 bg-brand-surface/40 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 mb-4 text-center">
+      <p class="text-xs uppercase tracking-wider text-slate-300 font-semibold" data-i18n="marquee_title">
+        Bizning bitiruvchilarimiz yetakchi kompaniyalarda faoliyat yuritadi:
+      </p>
+    </div>
+    
+    <div class="marquee-container">
+      <div class="marquee-track flex items-center gap-12 text-slate-400 font-bold text-lg">
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-cube text-blue-400"></i> EPAM Systems</span>
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-bolt text-purple-400"></i> Uzum Ecosystem</span>
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-wallet text-emerald-400"></i> Payme FinTech</span>
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-building-columns text-cyan-400"></i> IT Park Uzbekistan</span>
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-hand-pointer text-amber-400"></i> Click Uzbekistan</span>
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-landmark text-sky-400"></i> TBC Bank</span>
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-code text-rose-400"></i> Mohirdev</span>
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-tower-broadcast text-purple-400"></i> Ucell</span>
+        
+        <!-- Duplicated track for continuous infinite scroll -->
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-cube text-blue-400"></i> EPAM Systems</span>
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-bolt text-purple-400"></i> Uzum Ecosystem</span>
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-wallet text-emerald-400"></i> Payme FinTech</span>
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-building-columns text-cyan-400"></i> IT Park Uzbekistan</span>
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-hand-pointer text-amber-400"></i> Click Uzbekistan</span>
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-landmark text-sky-400"></i> TBC Bank</span>
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-code text-rose-400"></i> Mohirdev</span>
+        <span class="flex items-center gap-2 hover:text-white transition-colors"><i class="fa-solid fa-tower-broadcast text-purple-400"></i> Ucell</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       4. BIZ HAQIMIZDA (ABOUT US)
+  ========================================================= -->
+  <section id="about" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20" data-i18n="about_badge">
+          BIZ HAQIMIZDA
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4 mb-4" data-i18n="about_title">
+          Nima uchun aynan META IT SCHOOL?
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="about_desc">
+          Biz shunchaki nazariy bilim bermaymiz, balki sizni xalqaro IT bozorida raqobatbardosh mutaxassis qilib tayyorlaymiz.
+        </p>
+      </div>
+
+      <!-- 5 Core Pillars Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        
+        <!-- Pillar 1 -->
+        <div class="rounded-2xl glass-panel p-7 glass-card-hover border border-white/10 group">
+          <div class="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3" data-i18n="about_f1_title">Zamonaviy ta'lim</h3>
+          <p class="text-sm text-slate-300 leading-relaxed" data-i18n="about_f1_desc">
+            Eng so'nggi texnologiyalar (AI, Next.js, Cloud) va xalqaro standartlarga moslashtirilgan o'quv dasturi.
+          </p>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="rounded-2xl glass-panel p-7 glass-card-hover border border-white/10 group">
+          <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-user-tie"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3" data-i18n="about_f2_title">Tajribali mentorlar</h3>
+          <p class="text-sm text-slate-300 leading-relaxed" data-i18n="about_f2_desc">
+            EPAM, Payme, Uzum va IT Park kompaniyalarida 5+ yillik amaliy tajribaga ega bo'lgan Senior dasturchilar.
+          </p>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="rounded-2xl glass-panel p-7 glass-card-hover border border-white/10 group">
+          <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-code-fork"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3" data-i18n="about_f3_title">Amaliy loyihalar</h3>
+          <p class="text-sm text-slate-300 leading-relaxed" data-i18n="about_f3_desc">
+            O'qish davomida 5 tadan 10 tagacha real tijoriy loyihalar tayyorlab, kuchli GitHub portfoliosiga ega bo'lasiz.
+          </p>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="rounded-2xl glass-panel p-7 glass-card-hover border border-white/10 group">
+          <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-bullseye"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3" data-i18n="about_f4_title">Individual yondashuv</h3>
+          <p class="text-sm text-slate-300 leading-relaxed" data-i18n="about_f4_desc">
+            Kichik guruhlar (12-14 kishi), shaxsiy mentor nazorati, haftalik 1-on-1 savol-javob sessiyalari.
+          </p>
+        </div>
+
+        <!-- Pillar 5 -->
+        <div class="rounded-2xl glass-panel p-7 glass-card-hover border border-white/10 group lg:col-span-2">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3" data-i18n="about_f5_title">Ishga tayyorlash &amp; Karyera kafolati</h3>
+          <p class="text-sm text-slate-300 leading-relaxed" data-i18n="about_f5_desc">
+            Rezyume tayyorlash, texnik va HR suhbatlardan o'tish sirlari hamda hamkor kompaniyalarga ishga tavsiya. Bitiruvchilarimiz o'rtacha 1-3 oy ichida o'z mutaxassisligi bo'yicha ishga joylashadi.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Roadmap Infographic Banner -->
+      <div class="rounded-3xl glass-panel p-8 border border-white/10 relative overflow-hidden bg-gradient-to-r from-blue-900/20 via-brand-surface to-purple-900/20">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+          <div class="p-4">
+            <div class="text-2xl font-black text-blue-400 mb-2 font-mono">01.</div>
+            <h4 class="text-base font-bold text-white mb-1">Noldan Boshlash</h4>
+            <p class="text-xs text-slate-300">Dasturlash mantig'i, algoritmlar va asosiy texnologiyalar.</p>
+          </div>
+          <div class="p-4 border-t md:border-t-0 md:border-l border-white/10">
+            <div class="text-2xl font-black text-cyan-400 mb-2 font-mono">02.</div>
+            <h4 class="text-base font-bold text-white mb-1">Amaliy Darslar</h4>
+            <p class="text-xs text-slate-300">Mentor boshchiligida real loyihalar yaratish va kod yozish.</p>
+          </div>
+          <div class="p-4 border-t md:border-t-0 md:border-l border-white/10">
+            <div class="text-2xl font-black text-purple-400 mb-2 font-mono">03.</div>
+            <h4 class="text-base font-bold text-white mb-1">Portfolio &amp; GitHub</h4>
+            <p class="text-xs text-slate-300">Tijoriy darajadagi 5+ mustaqil diplom loyihasini yakunlash.</p>
+          </div>
+          <div class="p-4 border-t md:border-t-0 md:border-l border-white/10">
+            <div class="text-2xl font-black text-emerald-400 mb-2 font-mono">04.</div>
+            <h4 class="text-base font-bold text-white mb-1">Ishga Joylashish</h4>
+            <p class="text-xs text-slate-300">Mock intervyular, rezyume va hamkor IT kompaniyalarga yo'llanma.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       5. KURSLAR (COURSES) CATALOG
+  ========================================================= -->
+  <section id="courses" class="py-24 bg-brand-surface/30 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20" data-i18n="courses_badge">
+          ENG ZAMONAVIY TA'LIM
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4 mb-4" data-i18n="courses_title">
+          Professional Dasturlash Kurslari
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="courses_desc">
+          Boshlang'ichdan professional darajagacha bo'lgan to'liq yo'l xaritasi.
+        </p>
+      </div>
+
+      <!-- Controls: Category Filters & Search Bar -->
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-10">
+        
+        <!-- Filter Tabs -->
+        <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
+          <button data-category="all" class="course-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 text-white whitespace-nowrap transition-colors" data-i18n="filter_all">
+            Barcha kurslar
+          </button>
+          <button data-category="frontend" class="course-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white/5 text-slate-400 hover:text-white whitespace-nowrap transition-colors" data-i18n="filter_frontend">
+            Frontend
+          </button>
+          <button data-category="backend" class="course-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white/5 text-slate-400 hover:text-white whitespace-nowrap transition-colors" data-i18n="filter_backend">
+            Backend
+          </button>
+          <button data-category="fullstack" class="course-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white/5 text-slate-400 hover:text-white whitespace-nowrap transition-colors" data-i18n="filter_fullstack">
+            Full Stack
+          </button>
+          <button data-category="design" class="course-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white/5 text-slate-400 hover:text-white whitespace-nowrap transition-colors" data-i18n="filter_design">
+            Dizayn
+          </button>
+          <button data-category="mobile" class="course-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white/5 text-slate-400 hover:text-white whitespace-nowrap transition-colors" data-i18n="filter_mobile">
+            Mobile &amp; AI
+          </button>
+        </div>
+
+        <!-- Live Search Input -->
+        <div class="relative w-full md:w-72">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+          <input id="courseSearchInput" type="text" placeholder="Kurs nomi yoki texnologiya..." data-i18n="course_search_ph"
+                 class="w-full pl-9 pr-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors" />
+        </div>
+
+      </div>
+
+      <!-- Courses Grid Container (Rendered dynamically via app.js) -->
+      <div id="coursesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Course cards injected here -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       6. USTOZLAR (MENTORS)
+  ========================================================= -->
+  <section id="mentors" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20" data-i18n="mentors_badge">
+          MUTAXASSISLAR
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4 mb-4" data-i18n="mentors_title">
+          Bizning Kuchli Mentorlar Jamoasi
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="mentors_desc">
+          IT olamining yetakchi kompaniyalarida faoliyat yuritayotgan senior mutaxassislardan ta'lim oling.
+        </p>
+      </div>
+
+      <!-- Mentors Grid (Rendered dynamically via app.js) -->
+      <div id="mentorsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Mentors injected here -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       7. O‘QUVCHILAR NATIJALARI (STUDENT RESULTS & PORTFOLIO)
+  ========================================================= -->
+  <section id="results" class="py-24 bg-brand-surface/30 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" data-i18n="results_badge">
+          NATIJALAR VA PORTFOLIO
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4 mb-4" data-i18n="results_title">
+          O'quvchilarimiz Erishgan Yutuqlar
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="results_desc">
+          Bitiruvchilarimiz yaratgan real loyihalar va ularning martaba ko'tarilishi.
+        </p>
+      </div>
+
+      <!-- Student Projects Gallery (Rendered dynamically via app.js) -->
+      <div id="studentResultsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <!-- Projects injected here -->
+      </div>
+
+      <!-- Success Story Stats Bar -->
+      <div class="rounded-3xl glass-panel p-8 border border-white/10 bg-gradient-to-r from-blue-900/30 to-emerald-900/20">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+          <div>
+            <div class="text-3xl font-black text-emerald-400 mb-1">$800 – $2,200</div>
+            <p class="text-xs text-slate-300">Bitiruvchilarimizning dastlabki oylik maosh darajasi</p>
+          </div>
+          <div class="border-t md:border-t-0 md:border-l border-white/10 pt-4 md:pt-0">
+            <div class="text-3xl font-black text-blue-400 mb-1">1-3 Oy</div>
+            <p class="text-xs text-slate-300">Kursni tamomlagach ish topishning o'rtacha muddati</p>
+          </div>
+          <div class="border-t md:border-t-0 md:border-l border-white/10 pt-4 md:pt-0">
+            <div class="text-3xl font-black text-cyan-400 mb-1">40+ Hamkor</div>
+            <p class="text-xs text-slate-300">Bizning talabalarni to'g'ridan-to'g'ri ishga oluvchi IT kompaniyalar</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       8. RO‘YXATDAN O‘TISH (ENROLLMENT FORM & TELEGRAM INTEGRATION)
+  ========================================================= -->
+  <section id="applySection" class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Info Column -->
+        <div class="lg:col-span-5">
+          <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20" data-i18n="apply_badge">
+            QABUL 2026
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4 mb-4 leading-tight" data-i18n="apply_title">
+            Kelajak Kasbingizga Bugunoq Yoziling
+          </h2>
+          <p class="text-slate-300 text-sm leading-relaxed mb-8" data-i18n="apply_desc">
+            Formani to'ldiring, mutaxassisimiz 15 daqiqa ichida siz bilan bog'lanib, bepul maslahat beradi va ochiq darsga yozadi.
+          </p>
+
+          <!-- Perks Checklist -->
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs shrink-0 mt-0.5">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <span class="text-xs sm:text-sm text-slate-300">Birinchi sinov darsi mutlaqo bepul</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs shrink-0 mt-0.5">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <span class="text-xs sm:text-sm text-slate-300">Bepul coworking zonasi va yuqori tezlikdagi internet</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs shrink-0 mt-0.5">
+                <i class="fa-solid fa-check"></i>
+              </div>
+              <span class="text-xs sm:text-sm text-slate-300">Xalqaro QR-kodli sertifikat va ish bilan ta'minlash yordami</span>
+            </div>
+          </div>
+
+          <!-- Telegram Direct Community Box -->
+          <div class="p-4 rounded-2xl glass-panel border border-cyan-500/20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <i class="fa-brands fa-telegram text-2xl text-cyan-400"></i>
+              <div>
+                <h5 class="text-xs font-bold text-white">Telegram Kanalimiz</h5>
+                <p class="text-[11px] text-slate-400">Bepul darslar va IT maslahatlar</p>
+              </div>
+            </div>
+            <a href="https://t.me/metaitschool" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-xs font-bold transition-colors">
+              Qo'shilish
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right Application Form Card -->
+        <div class="lg:col-span-7">
+          <div class="rounded-3xl glass-panel p-8 sm:p-10 border border-white/10 shadow-2xl relative gradient-border">
+            
+            <form id="applyForm" class="space-y-5">
+              
+              <!-- Full Name -->
+              <div>
+                <label for="applyNameInput" class="block text-xs font-semibold text-slate-300 mb-1.5" data-i18n="apply_name_label">
+                  To'liq ismingiz:
+                </label>
+                <div class="relative">
+                  <i class="fa-regular fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+                  <input id="applyNameInput" type="text" required placeholder="Masalan: Sardor Rustamov" data-i18n="apply_name_ph"
+                         class="w-full pl-11 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors" />
+                </div>
+              </div>
+
+              <!-- Phone & Age -->
+              <div class="grid grid-cols-1 sm:grid-cols-12 gap-4">
+                <div class="sm:col-span-8">
+                  <label for="applyPhoneInput" class="block text-xs font-semibold text-slate-300 mb-1.5" data-i18n="apply_phone_label">
+                    Telefon raqamingiz:
+                  </label>
+                  <div class="relative">
+                    <i class="fa-solid fa-phone absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+                    <input id="applyPhoneInput" type="tel" required placeholder="+998 (__) ___-__-__"
+                           class="w-full pl-11 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white font-mono placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors" />
+                  </div>
+                </div>
+
+                <div class="sm:col-span-4">
+                  <label for="applyAgeInput" class="block text-xs font-semibold text-slate-300 mb-1.5" data-i18n="apply_age_label">
+                    Yoshingiz:
+                  </label>
+                  <input id="applyAgeInput" type="number" min="10" max="65" placeholder="19" data-i18n="apply_age_ph"
+                         class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors" />
+                </div>
+              </div>
+
+              <!-- Course Select -->
+              <div>
+                <label for="applyCourseSelect" class="block text-xs font-semibold text-slate-300 mb-1.5" data-i18n="apply_course_label">
+                  Qiziqtirgan kursingiz:
+                </label>
+                <div class="relative">
+                  <i class="fa-solid fa-laptop-code absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+                  <select id="applyCourseSelect" required
+                          class="w-full pl-11 pr-10 py-3 rounded-xl bg-[#0F172A] border border-white/10 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors appearance-none">
+                    <option value="" data-i18n="apply_course_default">-- Kursni tanlang --</option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-xs pointer-events-none"></i>
+                </div>
+              </div>
+
+              <!-- Notes / Questions -->
+              <div>
+                <label for="applyNotesInput" class="block text-xs font-semibold text-slate-300 mb-1.5" data-i18n="apply_notes_label">
+                  Qo'shimcha izoh yoki savolingiz:
+                </label>
+                <textarea id="applyNotesInput" rows="3" placeholder="IT dagi maqsadlaringiz yoki tajribangiz haqida yozing..." data-i18n="apply_notes_ph"
+                          class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"></textarea>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="w-full py-4 rounded-xl text-sm font-bold btn-primary flex items-center justify-center gap-2">
+                <i class="fa-paper-plane fa-solid"></i>
+                <span data-i18n="apply_submit_btn">Kursga Ro'yxatdan O'tish</span>
+              </button>
+
+              <!-- Telegram & Security Note -->
+              <p class="text-center text-[11px] text-slate-400 mt-2" data-i18n="apply_secure_note">
+                🔒 Ma'lumotlaringiz maxfiy saqlanadi va Telegram bot orqali tezkor yuboriladi.
+              </p>
+
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       9. O‘QUVCHILAR FIKRLARI (TESTIMONIALS SLIDER)
+  ========================================================= -->
+  <section id="testimonials" class="py-24 bg-brand-surface/30 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20" data-i18n="testi_badge">
+          FIKRLAR
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4 mb-4" data-i18n="testi_title">
+          Bitiruvchilarimiz Biz Haqimizda
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="testi_desc">
+          Meta IT School da tahsil olgan 1000+ dan ortiq talabalarning samimiy fikrlari.
+        </p>
+      </div>
+
+      <!-- Testimonial Slider Box -->
+      <div class="relative max-w-4xl mx-auto rounded-3xl glass-panel p-8 sm:p-14 border border-white/10">
+        
+        <!-- Slide Content (Rendered dynamically via app.js) -->
+        <div id="testimonialSlide">
+          <!-- Slide injected here -->
+        </div>
+
+        <!-- Slider Controls -->
+        <div class="flex items-center justify-between mt-8 pt-6 border-t border-white/10">
+          <button id="prevTestimonialBtn" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-all">
+            <i class="fa-solid fa-chevron-left text-sm"></i>
+          </button>
+          
+          <div id="testimonialDots" class="flex items-center gap-2">
+            <!-- Dots injected here -->
+          </div>
+
+          <button id="nextTestimonialBtn" class="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white flex items-center justify-center transition-all">
+            <i class="fa-solid fa-chevron-right text-sm"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       10. BLOG VA YANGILIKLAR
+  ========================================================= -->
+  <section id="blog" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20" data-i18n="blog_badge">
+          IT OLAMI YANGILIKLARI
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4 mb-4" data-i18n="blog_title">
+          Foydali Maqolalar va Yangiliklar
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="blog_desc">
+          Dasturlash, sun'iy intellekt va karyera rivoji bo'yicha eng so'nggi maqolalar.
+        </p>
+      </div>
+
+      <!-- Blogs Grid (Rendered dynamically via app.js) -->
+      <div id="blogsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Blogs injected here -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       11. FAQ (TEZ-TEZ BERILADIGAN SAVOLLAR)
+  ========================================================= -->
+  <section id="faq" class="py-24 bg-brand-surface/30 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center mb-16">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20" data-i18n="faq_badge">
+          SAVOLLAR
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4 mb-4" data-i18n="faq_title">
+          Tez-tez Beriladigan Savollar
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="faq_desc">
+          O'quv jarayoni va qabul bo'yicha eng muhim ma'lumotlar bilan tanishing.
+        </p>
+      </div>
+
+      <!-- FAQ Container (Rendered dynamically via app.js) -->
+      <div id="faqContainer" class="space-y-4">
+        <!-- FAQ items injected here -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       12. ALOQA (CONTACT SECTION & INTERACTIVE MAP)
+  ========================================================= -->
+  <section id="contact" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20" data-i18n="contact_badge">
+          BOG'LANISH
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-4 mb-4" data-i18n="contact_title">
+          Biz Bilan Aloqada Bo'ling
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed" data-i18n="contact_desc">
+          Savollaringiz bormi? Ofisimizga tashrif buyuring yoki xabar qoldiring.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Contact Cards & Map -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Phone -->
+            <a href="tel:+998941544488" class="p-5 rounded-2xl glass-panel border border-white/10 block hover:border-blue-500/40 transition-colors">
+              <i class="fa-solid fa-phone text-blue-400 text-xl mb-3"></i>
+              <div class="text-xs text-slate-300" data-i18n="contact_info_phone">Telefon raqam</div>
+              <div class="text-sm font-bold text-white mt-1">+998 94 154 44 88</div>
+              <div class="text-xs text-slate-400 mt-0.5">+998 99 998 82 32</div>
+            </a>
+
+            <!-- Telegram -->
+            <a href="https://t.me/metaitschool" target="_blank" rel="noopener noreferrer" class="p-5 rounded-2xl glass-panel border border-white/10 block hover:border-cyan-500/40 transition-colors">
+              <i class="fa-brands fa-telegram text-cyan-400 text-xl mb-3"></i>
+              <div class="text-xs text-slate-300" data-i18n="contact_info_tg">Telegram kanal</div>
+              <div class="text-sm font-bold text-white mt-1">@metaitschool</div>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:info@metaitschool.uz" class="p-5 rounded-2xl glass-panel border border-white/10 block hover:border-purple-500/40 transition-colors">
+              <i class="fa-solid fa-envelope text-purple-400 text-xl mb-3"></i>
+              <div class="text-xs text-slate-300" data-i18n="contact_info_email">Elektron pochta</div>
+              <div class="text-sm font-bold text-white mt-1">info@metaitschool.uz</div>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://instagram.com/metaitschool" target="_blank" rel="noopener noreferrer" class="p-5 rounded-2xl glass-panel border border-white/10 block hover:border-pink-500/40 transition-colors">
+              <i class="fa-brands fa-instagram text-pink-400 text-xl mb-3"></i>
+              <div class="text-xs text-slate-300">Instagram</div>
+              <div class="text-sm font-bold text-white mt-1">@metaitschool</div>
+            </a>
+          </div>
+
+          <!-- Campus Address -->
+          <div class="p-5 rounded-2xl glass-panel border border-white/10">
+            <div class="flex items-start gap-3">
+              <i class="fa-solid fa-location-dot text-rose-400 text-xl mt-1 shrink-0"></i>
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <h5 class="text-sm font-bold text-white" data-i18n="contact_info_addr">Bizning manzil</h5>
+                  <span class="text-[11px] font-mono text-cyan-400">40.760721, 72.354373</span>
+                </div>
+                <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                  Andijon shahri, Milliy Tiklanish ko'chasi, 11V-uy (Mo'ljal: Yangi bozor, Xalq qabulxonasi yaqinida).
+                </p>
+                <div class="mt-3 flex items-center gap-3">
+                  <a href="https://maps.google.com/?q=40.760721,72.354373" target="_blank" rel="noopener noreferrer" 
+                     class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-500/20 text-blue-300 hover:bg-blue-500/30 text-xs font-semibold transition-colors">
+                    <i class="fa-solid fa-diamond-turn-right text-xs"></i>
+                    <span>Google Maps da ochish</span>
+                  </a>
+                  <a href="https://yandex.uz/maps/?text=40.760721,72.354373" target="_blank" rel="noopener noreferrer"
+                     class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-500/20 text-rose-300 hover:bg-rose-500/30 text-xs font-semibold transition-colors">
+                    <i class="fa-solid fa-map-pin text-xs"></i>
+                    <span>Yandex Xarita</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Map Container (100% exact location in Andijan) -->
+          <div class="rounded-2xl overflow-hidden glass-panel border border-white/10 aspect-video shadow-xl relative">
+            <iframe 
+              src="https://maps.google.com/maps?q=40.760721,72.354373&hl=uz&z=17&output=embed" 
+              width="100%" 
+              height="100%" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
+        </div>
+
+        <!-- Contact Message Form -->
+        <div class="lg:col-span-7">
+          <div class="rounded-3xl glass-panel p-8 sm:p-10 border border-white/10 shadow-2xl">
+            <h3 class="text-xl font-bold text-white mb-2">To'g'ridan-to'g'ri xabar yuborish</h3>
+            <p class="text-xs text-slate-400 mb-6">Mutaxassislarimiz har qanday savolingizga javob berishga tayyor.</p>
+
+            <form id="contactForm" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="contactNameInput" class="block text-xs font-semibold text-slate-300 mb-1" data-i18n="contact_form_name">Ismingiz</label>
+                  <input id="contactNameInput" type="text" required placeholder="Ismingizni kiriting"
+                         class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors" />
+                </div>
+                <div>
+                  <label for="contactPhoneInput" class="block text-xs font-semibold text-slate-300 mb-1" data-i18n="contact_form_phone">Telefon raqamingiz</label>
+                  <input id="contactPhoneInput" type="tel" required placeholder="+998 (__) ___-__-__"
+                         class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white font-mono placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors" />
+                </div>
+              </div>
+
+              <div>
+                <label for="contactEmailInput" class="block text-xs font-semibold text-slate-300 mb-1">Email manzilingiz (ixtiyoriy)</label>
+                <input id="contactEmailInput" type="email" placeholder="example@mail.com"
+                       class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors" />
+              </div>
+
+              <div>
+                <label for="contactMessageInput" class="block text-xs font-semibold text-slate-300 mb-1" data-i18n="contact_form_msg">Xabaringiz</label>
+                <textarea id="contactMessageInput" rows="4" required placeholder="Xabar yoki savolingizni yozing..."
+                          class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors resize-none"></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-3.5 rounded-xl text-xs font-bold btn-primary flex items-center justify-center gap-2">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span data-i18n="contact_form_btn">Xabarni Yuborish</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       13. FOOTER
+  ========================================================= -->
+  <footer class="pt-16 pb-12 border-t border-white/10 bg-[#06080F]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10">
+        
+        <!-- Brand Info -->
+        <div class="lg:col-span-2">
+          <img src="assets/logo.svg" alt="Meta IT School" class="h-10 mb-4" />
+          <p class="text-xs text-slate-400 leading-relaxed mb-6 max-w-sm" data-i18n="footer_desc">
+            Meta IT School — kelajak kasblarini o'rgatuvchi, amaliyotga asoslangan zamonaviy IT akademiyasi. Biz bilan kelajagingizni quring.
+          </p>
+          
+          <!-- Live Admission Status Indicator -->
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Qabul 2026 davom etmoqda</span>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-sm font-bold text-white mb-4" data-i18n="footer_quick_links">Tezkor havolalar</h4>
+          <ul class="space-y-2.5 text-xs text-slate-400">
+            <li><a href="#hero" class="hover:text-blue-400 transition-colors" data-i18n="nav_home">Bosh sahifa</a></li>
+            <li><a href="#about" class="hover:text-blue-400 transition-colors" data-i18n="nav_about">Biz haqimizda</a></li>
+            <li><a href="#courses" class="hover:text-blue-400 transition-colors" data-i18n="nav_courses">Kurslar</a></li>
+            <li><a href="#mentors" class="hover:text-blue-400 transition-colors" data-i18n="nav_mentors">Ustozlar</a></li>
+            <li><a href="#results" class="hover:text-blue-400 transition-colors" data-i18n="nav_results">Natijalar</a></li>
+            <li><a href="#faq" class="hover:text-blue-400 transition-colors" data-i18n="nav_faq">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Popular Courses -->
+        <div>
+          <h4 class="text-sm font-bold text-white mb-4" data-i18n="footer_courses">Kurslar</h4>
+          <ul class="space-y-2.5 text-xs text-slate-400">
+            <li><a href="#courses" class="hover:text-blue-400 transition-colors">Frontend Development</a></li>
+            <li><a href="#courses" class="hover:text-blue-400 transition-colors">Backend Architecture</a></li>
+            <li><a href="#courses" class="hover:text-blue-400 transition-colors">Full Stack MERN/Next</a></li>
+            <li><a href="#courses" class="hover:text-blue-400 transition-colors">Python &amp; AI Engineering</a></li>
+            <li><a href="#courses" class="hover:text-blue-400 transition-colors">Flutter Mobile Apps</a></li>
+            <li><a href="#courses" class="hover:text-blue-400 transition-colors">UI/UX Design Master</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter Subscribe -->
+        <div>
+          <h4 class="text-sm font-bold text-white mb-4" data-i18n="footer_newsletter_title">Yangiliklarga obuna</h4>
+          <p class="text-xs text-slate-400 mb-3" data-i18n="footer_newsletter_desc">
+            Haftalik bepul darslar va chegirmalarni birinchilardan bo'lib oling.
+          </p>
+          <form id="newsletterForm" class="space-y-2">
+            <input type="email" required placeholder="Email manzilingiz"
+                   class="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+            <button type="submit" class="w-full py-2 rounded-xl text-xs font-bold btn-primary" data-i18n="footer_sub_btn">
+              Obuna bo'lish
+            </button>
+          </form>
+
+          <!-- Socials -->
+          <div class="flex items-center gap-3 mt-4 text-slate-400">
+            <a href="https://t.me/metaitschool" target="_blank" rel="noopener noreferrer" title="Telegram" class="hover:text-cyan-400 transition-colors"><i class="fa-brands fa-telegram text-lg"></i></a>
+            <a href="https://instagram.com/metaitschool" target="_blank" rel="noopener noreferrer" title="Instagram" class="hover:text-pink-400 transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+            <a href="https://youtube.com/@metaitschool" target="_blank" rel="noopener noreferrer" title="YouTube" class="hover:text-rose-500 transition-colors"><i class="fa-brands fa-youtube text-lg"></i></a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" title="GitHub" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Copyright & Bottom Nav -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-300 gap-4">
+        <div>
+          © 2026 META IT SCHOOL. <span data-i18n="footer_rights">Barcha huquqlar himoyalangan.</span>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="/admin" class="hover:text-blue-400 transition-colors">Admin Dashboard</a>
+          <span>·</span>
+          <a href="#hero" class="hover:text-blue-400 transition-colors">Maxfiylik Siyosati</a>
+          <span>·</span>
+          <a href="#hero" class="hover:text-blue-400 transition-colors">Foydalanish Shartlari</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       14. MODALS & POPUPS
+  ========================================================= -->
+
+  <!-- Modal 1: Free Consultation Modal -->
+  <div id="consultModal" class="modal-backdrop fixed inset-0 z-[1000] flex items-center justify-center p-4">
+    <div class="modal-box w-full max-w-md rounded-3xl glass-panel p-6 sm:p-8 border border-white/10 shadow-2xl relative">
+      <button onclick="closeModal('consultModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="mb-5">
+        <span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">BEPUL KONSULTATSIYA</span>
+        <h3 class="text-xl font-bold text-white mt-2" data-i18n="modal_consult_title">Bepul IT Konsultatsiya Oling</h3>
+        <p class="text-xs text-slate-400 mt-1" data-i18n="modal_consult_desc">
+          Tajribali mentorimiz sizning qiziqishlaringizga mos IT yo'nalishini tanlashga yordam beradi.
+        </p>
+      </div>
+
+      <form id="consultForm" class="space-y-4">
+        <div>
+          <label for="consultNameInput" class="block text-xs font-semibold text-slate-300 mb-1">Ismingiz</label>
+          <input id="consultNameInput" type="text" required placeholder="Ismingizni kiriting"
+                 class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+        </div>
+        <div>
+          <label for="consultPhoneInput" class="block text-xs font-semibold text-slate-300 mb-1">Telefon raqamingiz</label>
+          <input id="consultPhoneInput" type="tel" required placeholder="+998 (__) ___-__-__"
+                 class="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white font-mono placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+        </div>
+        <div>
+          <label for="consultCourseSelect" class="block text-xs font-semibold text-slate-300 mb-1">Qiziqqan sohangiz</label>
+          <select id="consultCourseSelect"
+                  class="w-full px-4 py-2.5 rounded-xl bg-[#0F172A] border border-white/10 text-xs text-white focus:outline-none focus:border-blue-500">
+            <option value="">Hali aniq emas / Barcha yo'nalishlar</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full py-3 rounded-xl text-xs font-bold btn-primary">
+          Konsultatsiya so'rovini yuborish
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Course Detailed Syllabus Modal -->
+  <div id="courseModal" class="modal-backdrop fixed inset-0 z-[1000] flex items-center justify-center p-4">
+    <div class="modal-box w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl glass-panel p-6 sm:p-8 border border-white/10 shadow-2xl relative">
+      <button onclick="closeModal('courseModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="mb-5">
+        <h3 id="courseModalTitle" class="text-2xl font-bold text-white mb-2">Frontend Development</h3>
+        <p id="courseModalDesc" class="text-xs text-slate-300 leading-relaxed mb-4"></p>
+        <div id="courseModalMeta" class="flex flex-wrap items-center gap-2 mb-6"></div>
+      </div>
+
+      <h4 class="text-sm font-bold text-white mb-3" data-i18n="modal_syllabus_title">Kurs Dasturi va Silabus</h4>
+      <div id="courseModalSyllabus" class="space-y-2.5 mb-8"></div>
+
+      <div class="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+        <button onclick="closeModal('courseModal')" class="px-4 py-2 rounded-xl text-xs font-semibold bg-white/5 text-slate-300 hover:bg-white/10" data-i18n="modal_close">
+          Yopish
+        </button>
+        <button id="courseModalEnrollBtn" class="px-5 py-2 rounded-xl text-xs font-bold btn-primary" data-i18n="course_enroll">
+          Ushbu Kursga Yozilish
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Blog Reader Modal -->
+  <div id="blogModal" class="modal-backdrop fixed inset-0 z-[1000] flex items-center justify-center p-4">
+    <div class="modal-box w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl glass-panel p-6 sm:p-8 border border-white/10 shadow-2xl relative">
+      <button onclick="closeModal('blogModal')" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="mb-4">
+        <span id="blogModalMeta" class="text-xs font-bold text-cyan-400 uppercase tracking-wider block mb-2"></span>
+        <h3 id="blogModalTitle" class="text-2xl font-bold text-white mb-4 leading-snug"></h3>
+      </div>
+
+      <div class="aspect-video rounded-2xl overflow-hidden mb-6 bg-slate-900">
+        <img id="blogModalImage" src="" alt="Blog image" class="w-full h-full object-cover" />
+      </div>
+
+      <p id="blogModalContent" class="text-sm text-slate-300 leading-relaxed whitespace-pre-line mb-6"></p>
+
+      <div class="text-right pt-4 border-t border-white/10">
+        <button onclick="closeModal('blogModal')" class="px-5 py-2 rounded-xl text-xs font-semibold bg-white/5 text-slate-300 hover:bg-white/10" data-i18n="modal_close">
+          Yopish
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll to Top Button with Circular Progress -->
+  <button id="scrollTopBtn" title="Yuqoriga qaytish" class="fixed bottom-6 left-6 z-40 w-12 h-12 rounded-full glass-panel border border-white/20 flex items-center justify-center text-white shadow-xl hover:scale-110">
+    <svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 40 40">
+      <circle cx="20" cy="20" r="18" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2.5"></circle>
+      <circle id="scrollTopProgress" cx="20" cy="20" r="18" fill="none" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round"></circle>
+    </svg>
+    <i class="fa-solid fa-arrow-up text-sm text-cyan-400 relative z-10"></i>
+  </button>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer"></div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/translations.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

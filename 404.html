@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Sahifa Topilmadi | META IT SCHOOL</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body class="bg-[#080B14] text-slate-100 min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden bg-grid-pattern">
+  <div class="hero-glow-1"></div>
+
+  <div class="relative z-10 max-w-lg w-full text-center rounded-3xl glass-panel p-8 sm:p-12 border border-white/10 shadow-2xl">
+    <a href="/" class="inline-block mb-6">
+      <img src="/assets/logo.svg" alt="Meta IT School" class="h-10 mx-auto" />
+    </a>
+
+    <div class="text-7xl sm:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-500 mb-4 font-mono">
+      404
+    </div>
+
+    <h1 class="text-2xl font-bold text-white mb-2">Sahifa Topilmadi</h1>
+    <p class="text-xs sm:text-sm text-slate-400 leading-relaxed mb-8">
+      Kechirasiz, siz qidirayotgan sahifa ko'chirilgan, nomi o'zgartirilgan yoki mavjud emas.
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+      <a href="/" class="w-full sm:w-auto px-6 py-3 rounded-xl text-xs font-bold btn-primary flex items-center justify-center gap-2">
+        <i class="fa-solid fa-house"></i>
+        <span>Bosh sahifaga qaytish</span>
+      </a>
+      <a href="/#courses" class="w-full sm:w-auto px-6 py-3 rounded-xl text-xs font-semibold btn-secondary flex items-center justify-center gap-2">
+        <i class="fa-solid fa-code"></i>
+        <span>Kurslarni ko'rish</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="absolute bottom-6 text-center text-xs text-slate-400 font-mono">
+    META IT SCHOOL · 2026
+  </div>
+</body>
+</html>
